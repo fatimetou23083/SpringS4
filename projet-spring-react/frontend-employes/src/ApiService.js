@@ -1,8 +1,14 @@
 import axios from 'axios';
+import AuthService from './AuthService';
 
 const API_BASE_URL = 'http://localhost:8081/api';
 
 class ApiService {
+  constructor() {
+    // Initialiser l'authentification au démarrage
+    AuthService.initializeAuth();
+  }
+
   // Endpoints pour les recherches
   searchByName(nom) {
     return axios.get(`${API_BASE_URL}/recherche/nom/${nom}`);

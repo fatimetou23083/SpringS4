@@ -16,6 +16,9 @@ public class Employe {
     
     @NotBlank(message = "Le nom est obligatoire")
     private String nom;
+
+    @NotBlank(message = "le password est obligatoire")
+    private String password;
     
     @NotBlank(message = "Le prénom est obligatoire")
     private String prenom;
@@ -36,6 +39,16 @@ public class Employe {
         this.prenom = prenom;
         this.departement = departement;
         this.salaire = salaire;
+        // Le password sera généré par défaut
+        this.password = "password123";
+    }
+
+    public Employe(String nom, String password, String prenom, String departement, Double salaire) {
+        this.nom = nom;
+        this.password = password;
+        this.prenom = prenom;
+        this.departement = departement;
+        this.salaire = salaire;
     }
 
     // Getters et Setters
@@ -53,6 +66,14 @@ public class Employe {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPrenom() {

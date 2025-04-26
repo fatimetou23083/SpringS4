@@ -9,7 +9,8 @@ function EmployeForm() {
         nom: '',
         prenom: '',
         departement: '',
-        salaire: ''
+        salaire: '',
+        password: ''
     });
     const [errors, setErrors] = useState({});
 
@@ -55,7 +56,7 @@ function EmployeForm() {
             if (id) {
                 await axios.put(`http://localhost:8081/api/employes/${id}`, employe);
             } else {
-                await axios.post('http://localhost:808/api/employes', employe);
+                await axios.post('http://localhost:8081/api/employes', employe);
             }
             navigate('/employes');
         } catch (err) {
@@ -78,6 +79,17 @@ function EmployeForm() {
                     />
                     {errors.nom && <div className="invalid-feedback">{errors.nom}</div>}
                 </div>
+                <div className="mb-3">
+    <label className="form-label">Mot de passe</label>
+    <input 
+        type="password" 
+        className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+        name="password" 
+        value={employe.password} 
+        onChange={handleChange} 
+    />
+    {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+</div>
                 <div className="mb-3">
                     <label className="form-label">Prénom</label>
                     <input 

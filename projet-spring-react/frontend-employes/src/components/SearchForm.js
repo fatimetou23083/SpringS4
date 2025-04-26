@@ -1,69 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import SearchForm from './components/SearchForm';
-import ApiService from './ApiService';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
-  const [employes, setEmployes] = useState([]);
-  const [loading, setLoading] = useState(false);
-  
-  // Autres états...
+function SearchForm({ onSearch }) {
+  const [searchType, setSearchType] = useState('nom');
+  const [searchValue, setSearchValue] = useState('');
 
-  useEffect(() => {
-    fetchAllEmployes();
-  }, []);
-
-  const fetchAllEmployes = async () => {
-    // Votre code existant...
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSearch(searchType, searchValue);
   };
-
-  // Fonction de recherche à passer au composant SearchForm
-  const handleSearch = async (searchType, searchValue) => {
-    if (!searchValue.trim()) {
-      fetchAllEmployes();
-      return;
-    }
-    
-    setLoading(true);
-    try {
-      let response;
-      
-      switch(searchType) {
-        case 'nom':
-          response = await ApiService.searchByName(searchValue);
-          break;
-        case 'departement':
-          response = await ApiService.searchByDepartment(searchValue);
-          break;
-        case 'salaire':
-          response = await ApiService.searchBySalaryMin(searchValue);
-          break;
-        default:
-          response = await ApiService.getAllEmployees();
-      }
-      
-      setEmployes(response.data);
-    } catch (error) {
-      console.error("Erreur lors de la recherche:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Reste de votre code...
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Gestion des Employés</h1>
-      </header>
-      
-      {/* Utiliser le composant SearchForm */}
-      <SearchForm onSearch={handleSearch} />
-
-      {/* Reste de votre JSX... */}
+    <div className="search-container">
+      <form onSubmit={handleSubmit}>
+        <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+          <option value="nom">Nom</option>
+          <option value="departement">Département</option>
+          <option value="salaire">Salaire minimum</option>
+        </select>
+        <input 
+          type={searchType === 'salaire' ? 'number' : 'text'}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          placeholder={`Rechercher par ${searchType}`}
+        />
+        <button type="submit">Rechercher</button>
+      </form>
     </div>
   );
 }
 
-export default App;
+export default SearchForm;

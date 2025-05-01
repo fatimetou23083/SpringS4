@@ -66,8 +66,24 @@ function EmployeDetail() {
                         >
                             Retour à la liste
                         </button>
+                        {/* Nouveau bouton pour accéder aux détails du salaire */}
+                        <button 
+                            onClick={() => navigate(`/salaires/employe/${employe.id}`)} 
+                            className="btn btn-info"
+                        >
+                            Détails du salaire
+                        </button>
                     </div>
                 </div>
+            </div>
+            
+            {/* Suggestion pour accéder au tableau de bord des salaires */}
+            <div className="mt-3">
+                <p>
+                    <a href="#" onClick={(e) => { e.preventDefault(); navigate('/dashboard-salaires'); }}>
+                        Voir le tableau de bord des salaires pour tous les employés
+                    </a>
+                </p>
             </div>
         </div>
     );

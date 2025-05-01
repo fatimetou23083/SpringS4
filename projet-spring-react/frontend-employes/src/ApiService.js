@@ -42,6 +42,15 @@ class ApiService {
   deleteEmployee(id) {
     return axios.delete(`${API_BASE_URL}/employes/${id}`);
   }
+
+  // Nouveaux endpoints pour les salaires
+  getEmployeeSalaryDetails(id) {
+    return axios.get(`${API_BASE_URL}/salaires/employe/${id}`);
+  }
+
+  getSalariesSummary() {
+    return axios.get(`${API_BASE_URL}/salaires/resume`);
+  }
 }
 
 export default new ApiService();

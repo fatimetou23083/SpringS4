@@ -27,14 +27,15 @@ public class AuthFilter implements Filter {
         
         String path = httpRequest.getRequestURI();
         
-        // Permet l'accès sans authentification aux endpoints de login, CORS et Swagger
+        // Permet l'accès sans authentification aux endpoints de login, CORS, Swagger et salaires
         if (path.contains("/api/auth/login") || 
             httpRequest.getMethod().equals("OPTIONS") ||
             path.contains("/swagger-ui") ||
             path.contains("/v3/api-docs") ||
             path.contains("/swagger-ui.html") ||
             path.contains("/swagger-resources") ||
-            path.contains("/webjars")) {
+            path.contains("/webjars") ||
+            path.contains("/api/salaires")) {  // Ajoutez cette ligne
             chain.doFilter(request, response);
             return;
         }
